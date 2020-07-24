@@ -1,1 +1,1 @@
-# sgtool
+# haskell-sgtool
