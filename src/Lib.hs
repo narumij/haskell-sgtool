@@ -8,9 +8,39 @@ import Data.Matrix
 import Data.Matrix.AsXYZ
 import Data.Matrix.SymmetryOperationsSymbols
 import Crystallography.HallSymbols
+import Crystallography.HallSymbols.SpacegroupSymbols
 
 someFunc :: String -> IO ()
-someFunc s = putStr $ render doc
+someFunc s = do
+    hoge s
+    someFunc' s
+
+hoge :: String -> IO ()
+hoge s = do
+    let a = lookup s rows
+    let b = (fmap hoge a)
+    case b of
+        Just c -> putStrLn $ render c
+        Nothing -> return ()
+    where
+        rows = map (\a@(b,c,d)->(d,a)) spacegroupSymbols
+        hoge (numberAndChoice,hmFull,hallName) =
+            hcat left [
+                vcat left [
+                    (text "Number and choice"), (text "Hermann–Mauguin"), (text "Hall Name")
+                    ],
+                vcat left [
+                    (text " : "),
+                    (text " : "),
+                    (text " : ")
+                ],
+                vcat left [
+                    (text numberAndChoice), (text hmFull), (text hallName)
+                ]
+            ]
+
+someFunc' :: String -> IO ()
+someFunc' s = putStr $ render doc
     where
         h1 = uvw s
         h2 = symbols s
