@@ -54,3 +54,4 @@ uvw s = prettyXYZ <$> fromHallSymbols' s
 
 symbols :: String -> [String]
 symbols s = fromHallSymbols' s >>= fromMatrix'
+
